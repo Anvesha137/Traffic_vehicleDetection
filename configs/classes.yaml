@@ -1,0 +1,44 @@
+# Vehicle Classes Configuration matching the 15 Excel Columns
+
+template_columns:
+  1: "Two Wheelers (White Plate)"
+  2: "Two Wheelers (Taxi)"
+  3: "Car/Jeep/Van"
+  4: "Autorickshaw - 3wh"
+  5: "Bus - City Bus (BMTC)"
+  6: "Bus - (KSRTC) BUS"
+  7: "Bus - Other Buses"
+  8: "Bus - Mini/Midi Bus"
+  9: "Goods Auto/LCV"
+  10: "Other Trucks"
+  11: "Agricultural Tractor/Trailer"
+  12: "Cycle"
+  13: "PBS"
+  14: "Others"
+
+# Mapping from Standard Pretrained Model Classes (COCO / YOLO) to Target Columns
+# COCO class IDs: 1: bicycle, 2: car, 3: motorcycle, 5: bus, 7: truck
+coco_mapping:
+  bicycle: "Cycle"
+  motorcycle: "Two Wheelers (White Plate)"
+  car: "Car/Jeep/Van"
+  bus: "Bus - Other Buses"
+  truck: "Other Trucks"
+  person: null  # ignore pedestrians unless needed
+
+# Mapping from Custom Fine-Tuned Model Classes to Target Columns
+custom_model_mapping:
+  two_wheeler_private: "Two Wheelers (White Plate)"
+  two_wheeler_taxi: "Two Wheelers (Taxi)"
+  car: "Car/Jeep/Van"
+  auto_rickshaw: "Autorickshaw - 3wh"
+  bus_bmtc: "Bus - City Bus (BMTC)"
+  bus_ksrtc: "Bus - (KSRTC) BUS"
+  bus_other: "Bus - Other Buses"
+  bus_minibus: "Bus - Mini/Midi Bus"
+  lcv_goods_auto: "Goods Auto/LCV"
+  truck: "Other Trucks"
+  tractor: "Agricultural Tractor/Trailer"
+  cycle: "Cycle"
+  pbs_bike: "PBS"
+  others: "Others"

@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Model weights
+*.pt
+*.onnx
+*.engine
+
+# Uploaded & output files
+uploads/
+outputs/
+
+# Video files (large)
+*.avi
+*.mp4
+*.mkv
+*.mov
+
+# Training data & outputs
+train/
+train_output/
+
+# Excel working files
+~$*.xlsx
+
+# Node / Frontend
+web/node_modules/
+web/dist/
+web/.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log

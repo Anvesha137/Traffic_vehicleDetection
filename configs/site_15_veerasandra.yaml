@@ -1,0 +1,50 @@
+site_id: "Site_15_Veerasandra"
+video_resolution:
+  - 1920
+  - 1080
+fps: 20.0
+start_time_overlay: "08:01:33"
+
+# Virtual counting lines for Arm A (Bottom/Foreground), Arm B (Top-Right), Arm C (Left/Top-Left)
+lines:
+  Arm_A_Entry:
+    p1: [450, 950]
+    p2: [1100, 950]
+    type: "entry"
+    arm: "Arm A"
+  Arm_A_Exit:
+    p1: [1150, 950]
+    p2: [1750, 950]
+    type: "exit"
+    arm: "Arm A"
+  Arm_B_Entry:
+    p1: [1300, 380]
+    p2: [1650, 480]
+    type: "entry"
+    arm: "Arm B"
+  Arm_B_Exit:
+    p1: [1400, 320]
+    p2: [1800, 420]
+    type: "exit"
+    arm: "Arm B"
+  Arm_C_Entry:
+    p1: [250, 450]
+    p2: [550, 420]
+    type: "entry"
+    arm: "Arm C"
+  Arm_C_Exit:
+    p1: [150, 520]
+    p2: [450, 480]
+    type: "exit"
+    arm: "Arm C"
+
+movement_mapping:
+  "Arm A -> Arm A": "A-A"
+  "Arm A -> Arm B": "A-B"
+  "Arm A -> Arm C": "A-C"
+  "Arm B -> Arm A": "B-A"
+  "Arm B -> Arm B": "B-B"
+  "Arm B -> Arm C": "B-C"
+  "Arm C -> Arm A": "C-A"
+  "Arm C -> Arm B": "C-B"
+  "Arm C -> Arm C": "C-C"
