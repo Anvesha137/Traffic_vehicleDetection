@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  traffic-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic_ai_pipeline
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./uploads:/app/uploads
+      - ./configs:/app/configs
+    environment:
+      - PORT=8000
+    restart: unless-stopped

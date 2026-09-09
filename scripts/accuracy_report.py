@@ -6,8 +6,10 @@ import openpyxl
 import os
 from datetime import time as dtime
 
-WORKSPACE = r"C:\Users\Admin\Desktop\Traffic"
-GROUND_TRUTH = os.path.join(WORKSPACE, "Site 15 - Veerasandra_Main_Road.xlsx")
+WORKSPACE = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+GROUND_TRUTH = os.path.join(WORKSPACE, "train_output", "Site 15 - Veerasandra_Main_Road.xlsx")
+if not os.path.exists(GROUND_TRUTH):
+    GROUND_TRUTH = os.path.join(WORKSPACE, "Site 15 - Veerasandra_Main_Road.xlsx")
 AI_OUTPUT = os.path.join(WORKSPACE, "outputs", "Site_15_Full_Output.xlsx")
 
 VEHICLE_COLS = [
