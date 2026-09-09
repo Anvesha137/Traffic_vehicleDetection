@@ -11,12 +11,37 @@ class VehicleDetector:
         self.model = YOLO(model_path)
         self.conf_threshold = conf_threshold
         
+        # Resolve config_path default if not specified
+        if not config_path:
+            default_cfg = os.path.join(os.path.dirname(__file__), "..", "..", "configs", "classes.yaml")
+            if os.path.exists(default_cfg):
+                config_path = os.path.abspath(default_cfg)
+
         # Load class mappings
+        self.class_map = {}
         if config_path and os.path.exists(config_path):
             with open(config_path, "r") as f:
-                cfg = yaml.safe_load(f)
-                self.class_map = cfg.get("coco_mapping", {})
-        else:
+                cfg = yaml.safe_load(f) or {}
+
+            # Detect whether loaded model contains custom fine-tuned classes or standard COCO classes
+            custom_map = cfg.get("custom_model_mapping", {})
+            coco_map = cfg.get("coco_mapping", {})
+            model_class_names = set(self.model.names.values()) if hasattr(self.model, "names") else set()
+
+            # Domain-specific classes that only exist in custom traffic models (not in standard COCO 80-classes)
+            custom_exclusive_classes = {
+                "two_wheeler_private", "two_wheeler_taxi", "auto_rickshaw",
+                "bus_bmtc", "bus_ksrtc", "bus_minibus", "lcv_goods_auto",
+                "tractor", "pbs_bike"
+            }
+
+            if model_class_names and any(c in custom_exclusive_classes for c in model_class_names):
+                self.class_map = custom_map
+            else:
+                self.class_map = coco_map
+        
+        # Fallback if config is missing or empty
+        if not self.class_map:
             self.class_map = {
                 "bicycle": "Cycle",
                 "motorcycle": "Two Wheelers (White Plate)",

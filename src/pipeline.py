@@ -12,11 +12,14 @@ from src.aggregation.bucket_aggregator import BucketAggregator
 from src.excel.excel_writer import ExcelWriter
 
 class TrafficPipeline:
-    def __init__(self, config_path: str, model_path: str = "yolov8m.pt"):
+    def __init__(self, config_path: str, model_path: str = "yolov8m.pt", classes_config_path: str = None):
         with open(config_path, "r") as f:
             self.config = yaml.safe_load(f)
         
-        self.detector = VehicleDetector(model_path=model_path)
+        if not classes_config_path:
+            classes_config_path = os.path.join(os.path.dirname(__file__), "..", "configs", "classes.yaml")
+
+        self.detector = VehicleDetector(model_path=model_path, config_path=classes_config_path)
         self.tracker = VehicleTracker()
         self.classifier = TurningMovementClassifier(self.config)
         self.aggregator = BucketAggregator()

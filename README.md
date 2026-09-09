@@ -82,9 +82,13 @@ Raw CCTV Video (.avi / .mp4)
 
 ### Key Engineering Highlights
 
+- **Unified Web & CLI Architecture:** Both the headless CLI (`src/pipeline.py`) and the interactive FastAPI/WebSocket server (`server.py`) run the identical `TurningMovementClassifier` and `BucketAggregator` engine using site-calibrated YAML coordinates, guaranteeing identical results between the web UI and batch runs.
 - **Why ByteTrack + Ground Contact Projection?** Centroid tracking fails on elevated fixed CCTV because tall vehicles (trucks/buses) have bounding box centers far above the road plane. By computing $(x_{\text{mid}}, y_{\text{max}})$, virtual line crossings occur exactly when the vehicle's tires touch the line, eliminating parallax errors.
 - **Temporal Class Majority Voting:** Neural net outputs can flicker between visually adjacent categories (e.g., Car vs. LCV). The tracker maintains a sliding classification history for each active `track_id` and assigns the modal class over the trajectory.
 - **Orientation-Based Line Intersections:** Line crossings use counterclockwise (`ccw`) determinant testing on segments $(P_{t-1}, P_t)$ and $(L_1, L_2)$, preventing missed counts during fast frame drops or high velocity.
+- **Vehicle Taxonomy & Model Architecture:**
+  - **Base Model (v1)**: Uses stock `yolov8m.pt` (COCO-trained) mapping to the 5 primary vehicle super-classes (`Car/Jeep/Van`, `Two Wheelers (White Plate)`, `Bus - Other Buses`, `Other Trucks`, `Cycle`).
+  - **14-Class Domain Extension**: The pipeline architecture, Excel mapping engine, and `configs/classes.yaml` are designed for fine-grained Indian traffic classification (Autorickshaws, BMTC/KSRTC livery distinction, LCVs, PBS bikes, Tractors). When custom fine-tuned weights are dropped in, `VehicleDetector` detects custom class labels and switches to `custom_model_mapping` without any code modifications. Full labeling and fine-tuning specs are documented in [`Docs/05_Phase3_Vehicle_Detection_Model.md`](Docs/05_Phase3_Vehicle_Detection_Model.md).
 
 ---
 
